@@ -1,0 +1,16 @@
+html{
+color: blue;
+}
+p{
+	font-size: 102px;
+	font-weight: bolder;
+	text-align: center;
+	font-family: courier;
+}
+body{
+	background-color:#d742f4
+}
+#theHowdy{
+	font-size: medium;
+	color: black;
+}
