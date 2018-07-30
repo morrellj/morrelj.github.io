@@ -8,9 +8,16 @@ p{
 	font-family: courier;
 }
 body{
-	background-color:#d742f4
+	background-color:#000000
 }
-#theHowdy{
-	font-size: medium;
-	color: black;
+.links{
+	color: coral;
+}
+img{
+	max-width: 50%;
+	height: auto; 
+	border-radius: 25px;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
 }
