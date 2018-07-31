@@ -4,4 +4,4 @@ title: About
 permalink: /about/
 ---
 
- Our photo album.  Moments of our wondrously beautiful life.  Bunbury.
+ Our photo album.  Moments of our wondrously beautiful life.  Bunbury and beyond.
