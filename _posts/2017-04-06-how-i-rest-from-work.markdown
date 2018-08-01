@@ -11,7 +11,9 @@ Jon used to surf. This is but a distant memory of a bygone era.
 
 ![Niina loves flowers!]({{site.baseurl}}/img/flower.jpg)
 
->Niina loves flowers!
+![Niina loves flowers!]({{site.baseurl}}/img/fungus2.jpg)
+
+#>Niina loves flowers! Yes she does.
 
 A list sample
 
