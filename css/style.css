@@ -41,10 +41,11 @@ a.anchor #pricinganchor{
     top: -800px;
     visibility: hidden;
 }
-h1{
+#logoname{
   width: 100%;
-  text-align: center;
+  text-align: left;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 /** global classes styling **/
@@ -90,6 +91,7 @@ header {
     position: relative;
     top: -270px;
     visibility: hidden;
+
 }
 a.anchor #featuresanchor{
     display: block;
@@ -102,6 +104,9 @@ a.anchor #pricinganchor{
     position: relative;
     top: -1800px;
     visibility: hidden;
+}
+#logoname{
+  text-align: center;
 }
 }
 .logo {
