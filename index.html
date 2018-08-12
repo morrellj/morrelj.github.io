@@ -1,19 +1,160 @@
----
-layout: main
----
-{% for post in paginator.posts %}
-<article class="post">
-  {% if post.img %}
-    <a class="post-thumbnail" style="background-image: url({{"/img/" | prepend: site.baseurl | append : post.img}})" href="{{post.url | prepend: site.baseurl}}"></a>
-  {% else %}
-  {% endif %}
-  <div class="post-content">
-    <h2 class="post-title"><a href="{{post.url | prepend: site.baseurl}}">{{post.title}}</a></h2>
-    <p>{{ post.content | strip_html | truncatewords: 15 }}</p>
-    <span class="post-date">{{post.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-    <span class="post-words">{% capture words %}{{ post.content | number_of_words }}{% endcapture %}{% unless words contains "-" %}{{ words | plus: 250 | divided_by: 250 | append: " minute read" }}{% endunless %}</span>
-  </div>
-</article>
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en" >
 
-{% include pagination.html %}
+<head>
+  <meta charset="UTF-8">
+  <title>FCC: Product Landing Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
+
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+  <div id="page-wrapper">
+<header id="header">
+  <div class="logo">
+    <img id="header-img" src="assets/btsLogoNoBack.png" alt="BTS logo" />
+  </div>
+  <h1>BTS SOLUTIONS</h1>
+  <nav id="nav-bar">
+    <ul>
+      <li><a class="nav-link" href="#featuresanchor">Features</a></li>
+      <li><a class="nav-link" href="#people">The people</a></li>
+      <li><a class="nav-link" href="#pricinganchor">Pricing</a></li>
+    </ul>
+  </nav>
+
+</header>
+
+<div class="container">
+
+</div>
+
+<section id="hero">
+  <h2>WE ARE COMMITTED TO HELPING YOU GROW YOUR BUSINESS SO YOU CAN ENJOY THE FRUITS OF LIFE!</h2>
+  <form id="form" action="https://www.freecodecamp.com/email-submit">
+    <input name="email" id="email" type="email" placeholder="Enter your email address" required/>
+    <input id="submit" type="submit" value="Get Started" class="btn"></input>
+  </form>
+</section>
+
+
+<div class="container">
+  <a class="anchor" id="featuresanchor"></a>
+  <section id="features">
+    <div class="grid">
+      <div class="icon">
+        <i class="fa fa-3x fa-usd"></i>
+      </div>
+      <div class="desc">
+        <h2>Business</h2>
+        <p>Let us support your business with administration, payroll and bookkeeping services saving you valuable time to work on what you do best.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="icon">
+        <i class="fa fa-3x fa-pencil-square-o"></i>
+      </div>
+      <div class="desc">
+        <h2>Taxation</h2>
+        <p>We prepare and lodge annual income tax returns for individuals, companies, trusts, partnerships and superannuation funds.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="icon">
+        <i class="fa fa-3x fa-line-chart"></i>
+      </div>
+      <div class="desc">
+        <h2>Superannuation</h2>
+        <p>Before you establish a SMSF you need to understand what you are taking on, you need to be sure that you are suited to running your own fund!</p>
+      </div>
+    </div>
+  </section>
+  
+<a class="anchor" id="people"></a>
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="item active">
+      <img class="d-block w-100" src="https://static.wixstatic.com/media/5db29e_ee8e6b206b97c44cd2177e163ced305e.jpg/v1/fill/w_100,h_75,al_c,q_90,usm_0.66_1.00_0.01/5db29e_ee8e6b206b97c44cd2177e163ced305e.webp" alt="First slide">
+    </div>
+    <div class="item">
+      <img class="d-block w-100" src="https://static.wixstatic.com/media/5db29e_b39d5e14bdf2e0b3f99ba3d22cbe6b07.jpg/v1/fill/w_152,h_114,al_c,q_90,usm_0.66_1.00_0.01/5db29e_b39d5e14bdf2e0b3f99ba3d22cbe6b07.webp" alt="Second slide">
+    </div>
+    <div class="item">
+      <img class="d-block w-100" src="https://static.wixstatic.com/media/5db29e_a06296cfe6b155d9c306d163d0151a9c.jpg/v1/fill/w_100,h_75,al_c,q_90,usm_0.66_1.00_0.01/5db29e_a06296cfe6b155d9c306d163d0151a9c.webp" alt="Third slide">
+    </div>
+  </div>
+</div>
+  
+  <section id="pricing">
+    <div id="tenor">
+      <div class="level">
+        <a class="anchor" id="pricinganchor"></a>
+        Simple individual tax return
+      </div>
+      <h2>$600</h2>
+      <ol>
+        <li>Lorem ipsum.</li>
+        <li>Lorem ipsum.</li>
+        <li>Lorem ipsum dolor.</li>
+        <li>Lorem ipsum.</li>
+      </ol>
+      <button class="btn">Select</button>
+    </div>
+    <div id="bass">
+      <div class="level">
+        Set up Company
+      </div>
+      <h2>$900</h2>
+      <ol>
+        <li>Lorem ipsum.</li>
+        <li>Lorem ipsum.</li>
+        <li>Lorem ipsum dolor.</li>
+        <li>Lorem ipsum.</li>
+      </ol>
+      <button class="btn">Select</button>
+    </div>
+    <div id="valve">
+      <div class="level">
+        Set up super fund
+      </div>
+      <h2>$1200</h2>
+      <ol>
+        <li>Lorem ipsum.</li>
+        <li>Lorem ipsum.</li>
+        <li>Lorem ipsum dolor.</li>
+        <li>Lorem ipsum.</li>
+      </ol>
+      <button class="btn">Select</button>
+    </div>
+  </section>
+  <footer>
+    <ul>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <span>Copyright 2016, BTS Solutions</span>
+  </footer>
+</div>
+</div>
+  <script src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
