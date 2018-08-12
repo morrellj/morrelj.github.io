@@ -79,6 +79,7 @@ header {
   justify-content: space-around;
   align-items: center;
   background-color: #eee;
+  z-index: 1;
 }
 @media (max-width: 600px) {
   header {
