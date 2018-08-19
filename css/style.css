@@ -86,10 +86,11 @@ nav ul {
   margin-top: -60px;
 }
 
-.work .work-header {
+#work-header {
   margin-top: 20px;
   color: #36416E;
   font-weight: normal;
+  padding: 30px 0px;
 }
 
 .project {
