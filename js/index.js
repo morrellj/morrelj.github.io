@@ -7,51 +7,54 @@ var first = true;
 var timerID;
 var hovered = false
 
+ function menuFade(){
+  $(".navlist").css({ "opacity": "0", "transition": "1s" });
+  $("nav ul").css({ "opacity": "0", "transition": "1s", "top": "-150px" });
+  $("#menuButton").css({ "opacity": "1" , "transition": "1s"});
+  setTimeout(function () {
+      $("#menuButton").css({ "opacity": "0.5" });
+      }, 5000);  
+ }
+function menuAppear(){
+  $(".navlist").css({ "opacity": "1", "transition": "1s" });
+    $("nav ul").css({ "opacity": "1", "transition": "1s", "top": "0px" });
+    $("#menuButton").css({ "opacity": "0" });
+    setTimeout(function () {
+      $(".navlist").css({ "opacity": "0", "transition": "1s" });
+      $("#menuButton").css({ "opacity": "1" });
+      $("nav ul").css({ "opacity": "0", "transition": "1s", "top": "-150px" });
+      first = false;}, 3000);
+    setTimeout(function () {
+      $("#menuButton").css({ "opacity": "0.5" });
+      }, 8000);
+    }  
+  
+
 $(window).scroll(function (event) {
   var scroll = $(window).scrollTop();
-  console.log(scroll);
-
   if (scroll <= 1) {
-    $(".navlist").css({ "opacity": "0", "transition": "1s" });
-    $("nav ul").css({ "opacity": "0", "transition": "1s", "top": "-100px" });
+    menuFade();
   } 
   else if (first == true && scroll >= 1) 
   {
-    $(".navlist").css({ "opacity": "1", "transition": "1s" });
-    $("nav ul").css({ "opacity": "1", "transition": "1s", "top": "0px" });
-    setTimeout(function () {
-      first = false;
-      $(".navlist").css({ "opacity": "0", "transition": "1s" });
-      $("#menuButton").css({ "opacity": "1" });
-      $("nav ul").css({ "opacity": "0", "transition": "1s", "top": "-100px" });}, 3000);
+    menuAppear();
   }
   else if(first == false)
   {
-    $(".navlist").css({ "opacity": "0", "transition": "1s" });
-    $("#menuButton").css({ "opacity": "1" });
-    $("nav ul").css({ "opacity": "0", "transition": "1s", "top": "-100px" });
+    menuFade();
   }
 });
 
 $("#menuButton").click(function () {
   if (hovered == false) {
     hovered = true;
-    $(".navlist").css({ "opacity": "1" });
-    $("nav ul").css({ "opacity": "1", "top": "0px" });
-    $("#menuButton").css({ "opacity": "0" });
-    timerID = setTimeout(function () {
-      $(".navlist").css({ "opacity": "0"});
-      $("nav ul").css({ "opacity": "0", "top": "-100px" });
-      $("#menuButton").css({ "opacity": "1" });
+    menuAppear();
       hovered = false;
-    }, 3000);
   }
 });
 
 $(".navlinks").click(function(){
-  $(".navlist").css({ "opacity": "0" });
-  $("nav ul").css({ "opacity": "0", "top": "-100px" });
-  $("#menuButton").css({ "opacity": "1" });
+  menuFade();
   hovered = false;
   clearTimeout(timerID);
 });

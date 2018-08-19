@@ -172,6 +172,7 @@ nav ul {
   height: 10vw;
   line-height: 10vw;
   background: Var(--color-three);
+  color: Var(--color-two);
   font-size: 1.5vw;
 }
 
