@@ -103,6 +103,9 @@ nav ul {
   background: #E7EAF2;
   /*   background: url("https://res.cloudinary.com/dck40m3wf/image/upload/v1455459914/Portfolio/fancy-floral-pattern-384.jpg") repeat; */
 }
+.project-tile{
+  border-radius: 4px;
+}
 
 .project-pic {
   width: 100%;
