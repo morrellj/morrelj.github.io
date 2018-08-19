@@ -29,8 +29,12 @@ h1 {
   color: Var(--color-one);
 }
 
+.intro h1{
+  margin-top: 11vh;
+}
+
 .intro p {
-  color: Var(--color-one);
+  color: #767676;
   padding: 20px;
 }
 
@@ -146,7 +150,7 @@ nav ul {
 
 .contact p{
   margin-top: 5vh;
-  margin-bottom: 5vh;
+  margin-bottom: 15vh;
 }
 .contact h1{
   margin-top: 5vh;
@@ -242,7 +246,7 @@ footer a {
   }
   .contact p{
   margin-top: 4vh;
-  margin-bottom: 2vh;
+  margin-bottom: 4vh;
 }
 .contact h1{
   margin-top: 2vh;
