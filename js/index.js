@@ -25,7 +25,7 @@ $(window).scroll(function (event) {
   }
 });
 
-$("#menuButton").hover(function () {
+$("#menuButton").click(function () {
   if (hovered == false) {
     hovered = true;
     console.log(hovered);
