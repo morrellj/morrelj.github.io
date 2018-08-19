@@ -29,14 +29,12 @@ $("#menuButton").click(function () {
   if (hovered == false) {
     hovered = true;
     console.log(hovered);
-    $(".navlist").css({ "opacity": "1", "pointer-events": "auto" });
-    $(".navlinks").css({ "pointer-events": "auto" });
-    $("nav ul").css({ "opacity": "1", "pointer-events": "auto", "top": "0px" });
+    $(".navlist").css({ "opacity": "1" });
+    $("nav ul").css({ "opacity": "1", "top": "0px" });
     $("#menuButton").css({ "opacity": "0" });
     setTimeout(function () {
-      $(".navlist").css({ "opacity": "0", "pointer-events": "none" });
-      $("nav ul").css({ "opacity": "0", "pointer-events": "none", "top": "-100px" });
-      $(".navlinks").css({ "pointer-events": "none" });
+      $(".navlist").css({ "opacity": "0"});
+      $("nav ul").css({ "opacity": "0", "top": "-100px" });
       $("#menuButton").css({ "opacity": "1" });
       hovered = false;
       console.log(hovered);
@@ -87,9 +85,8 @@ $("#menuButton").click(function () {
       $("nav ul").css({"opacity":"0","transition":"1s"});*/
 });
 $(".navlinks").click(function(){
-   $(".navlist").css({ "opacity": "0", "pointer-events": "none" });
-      $("nav ul").css({ "opacity": "0", "pointer-events": "none", "top": "-100px" });
-      $(".navlinks").css({ "pointer-events": "none" });
+   $(".navlist").css({ "opacity": "0" });
+      $("nav ul").css({ "opacity": "0", "top": "-100px" });
       $("#menuButton").css({ "opacity": "1" });
       hovered = false;
     });
