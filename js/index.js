@@ -86,3 +86,10 @@ $("#menuButton").click(function () {
       $(".navlist").css({"opacity":"0","transition":"1s"});
       $("nav ul").css({"opacity":"0","transition":"1s"});*/
 });
+$(".navlinks").click(function(){
+   $(".navlist").css({ "opacity": "0", "pointer-events": "none" });
+      $("nav ul").css({ "opacity": "0", "pointer-events": "none", "top": "-100px" });
+      $(".navlinks").css({ "pointer-events": "none" });
+      $("#menuButton").css({ "opacity": "1" });
+      hovered = false;
+    });
