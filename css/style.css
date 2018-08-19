@@ -17,7 +17,7 @@ body {
 
 .intro {
   top: 0;
-  background: #E7EAF2;
+  background: white;
   min-height: 73vh;
   padding-top: 27vh;
   border-right: 2px solid white;
@@ -26,11 +26,11 @@ body {
 
 h1 {
   font-size: 3em;
-  color: #36416E;
+  color: Var(--color-one);
 }
 
 .intro p {
-  color: Var(--color-two);
+  color: Var(--color-one);
   padding: 20px;
 }
 
@@ -69,7 +69,7 @@ nav ul {
   top: 20px;
   right: 20px;
   border-radius: 100%;
-  background-color: Var(--color-two);
+  background-color: Var(--color-one);
   z-index: 2;
   opacity: 0;
 }
@@ -87,10 +87,9 @@ nav ul {
 }
 
 #work-header {
-  margin-top: 20px;
   color: #36416E;
   font-weight: normal;
-  padding: 30px 0px;
+  padding: 40px 0px;
 }
 
 .project {
@@ -121,7 +120,7 @@ nav ul {
   display: block;
   width: 200px;
   height: 30px;
-  margin: 50px auto 55px;
+  margin: 50px auto 100px;
   font-weight: bold;
   font-size: 1em;
   background: #6673FF;
@@ -139,18 +138,27 @@ nav ul {
 
 .contact {
   border: 3px solid white;
+  height: 100vh;
 }
 
-.header {
+.contact p{
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+.contact h1{
+  margin-top: 5vh;
+}
+
+/*.header {
   padding: 50px 0px 0px;
   background: #E7EAF2;
   margin-top: 40px;
-}
+}*/
 
 .contact-details {
   display: inline-block;
   font-weight: bold;
-  margin: 0 3.5vw 25px 3.5vw;
+  margin: 15vh 3.5vw 15vh 3.5vw;
   list-style-type: none;
   border-radius: 100%;
   width: 10vw;
@@ -183,7 +191,7 @@ footer a {
 
 @media screen and (max-width: 750px) {
   .navlist {
-    margin: 5px 20px 5px 20px;
+    margin: 15px 20px 15px 20px;
   }
 
   h1 {
@@ -193,7 +201,7 @@ footer a {
   .contact-details {
     display: inline-block;
     font-weight: bold;
-    margin: 0 3vw 25px 3vw;
+    margin: 15vh 2vw 15vh 2vw;
     list-style-type: none;
     border-radius: 100%;
     width: 12vw;
@@ -222,19 +230,27 @@ footer a {
   }
 
   .contact-details {
-    margin: 0 .5vw 25px .5vw;
-    width: 15vw;
-    height: 15vw;
-    line-height: 15vw;
-    font-size: 2.5vw;
+    margin: 2vh 10vw 2vh 10vw;
+    width: 50%;
+    height:8vw;
+    line-height: 8vw;
+    font-size: 15px;
+    border-radius: 5px;
   }
+  .contact p{
+  margin-top: 4vh;
+  margin-bottom: 2vh;
+}
+.contact h1{
+  margin-top: 2vh;
+}
 }
 /* @media only screen and (max-width: 367px) {
      #contact{
     min-height:1100px;
   } 
   .contact-details {
-    border-radius: 5px;
+    
     width: 95px;
     height: 25px;
     padding: 10px;
