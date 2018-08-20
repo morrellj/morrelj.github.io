@@ -1,4 +1,4 @@
- // coded by @ChaituVR
+
 var projectName = 'portfolio';
 localStorage.setItem('example_project', 'Personal Portfolio');
 
@@ -31,39 +31,43 @@ function menuAppear(){
     $(".navlist").css({ "opacity": "0", "transition": "1s" });
     $("#menuButton").css({ "opacity": "1" });
     $("nav ul").css({ "opacity": "0", "transition": "1s", "top": "-150px" });
-  }, 3000);
-  setTimeout(function () {
-    first = false;
+    buttonFade();
   }, 3000);
 }  
   
 
 $(window).scroll(function (event) {
   var scroll = $(window).scrollTop();
-  if (scroll <= 1) {
-    menuFade();
-  } 
-  else if (first == true && scroll >= 1) 
+  if (first == true ) 
+  {
+    menuAppear();
+    setTimeout(function () {
+    first=false;
+    }, 3000);
+
+  }
+  else if (first == false && scroll <= 1) 
   {
     menuAppear();
   }
-  else if(first == false)
+  else if(first == false && scroll >= 1)
   {
     menuFade();
   }
 });
 
 $("#menuButton").click(function () {
-  if (hovered == false) {
-    hovered = true;
+  /*if (hovered == false) {*/
+    /*hovered = true;*/
     menuAppear();
-      hovered = false;
-  }
+      /*hovered = false;
+  }*/
 });
 
 $(".navlinks").click(function(){
   menuFade();
-  hovered = false;
+  first = false;
+  /*hovered = false;*/
 });
   /*$("#menuButton").hover(function(){
       if (hovered == false){
