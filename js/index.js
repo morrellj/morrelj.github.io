@@ -5,29 +5,37 @@ localStorage.setItem('example_project', 'Personal Portfolio');
 var last = 2;
 var first = true;
 var timerID;
+var buttonTimerID;
 var hovered = false
 
- function menuFade(){
+function buttonFade(){
+  buttonTimerID = setTimeout(function () {
+    $("#menuButton").css({ "opacity": "0.5" });
+    }, 3000);
+}
+function menuFade(){
+  window.clearTimeout(timerID);
+  window.clearTimeout(buttonTimerID);
   $(".navlist").css({ "opacity": "0", "transition": "1s" });
   $("nav ul").css({ "opacity": "0", "transition": "1s", "top": "-150px" });
   $("#menuButton").css({ "opacity": "1" , "transition": "1s"});
-  setTimeout(function () {
-      $("#menuButton").css({ "opacity": "0.5" });
-      }, 5000);  
- }
+  buttonFade();  
+}
 function menuAppear(){
+  window.clearTimeout(timerID);
+  window.clearTimeout(buttonTimerID);
   $(".navlist").css({ "opacity": "1", "transition": "1s" });
     $("nav ul").css({ "opacity": "1", "transition": "1s", "top": "0px" });
     $("#menuButton").css({ "opacity": "0" });
-    setTimeout(function () {
-      $(".navlist").css({ "opacity": "0", "transition": "1s" });
-      $("#menuButton").css({ "opacity": "1" });
-      $("nav ul").css({ "opacity": "0", "transition": "1s", "top": "-150px" });
-      first = false;}, 3000);
-    setTimeout(function () {
-      $("#menuButton").css({ "opacity": "0.5" });
-      }, 8000);
-    }  
+  timerID = setTimeout(function () {
+    $(".navlist").css({ "opacity": "0", "transition": "1s" });
+    $("#menuButton").css({ "opacity": "1" });
+    $("nav ul").css({ "opacity": "0", "transition": "1s", "top": "-150px" });
+  }, 3000);
+  setTimeout(function () {
+    first = false;
+  }, 3000);
+}  
   
 
 $(window).scroll(function (event) {
@@ -56,7 +64,6 @@ $("#menuButton").click(function () {
 $(".navlinks").click(function(){
   menuFade();
   hovered = false;
-  clearTimeout(timerID);
 });
   /*$("#menuButton").hover(function(){
       if (hovered == false){
