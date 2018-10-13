@@ -267,8 +267,8 @@ function checkForCompleteness(arr){
 //exit point
 function printSolution(targetArray){
 	targetArray.map((ele,ind)=>{
-		//$("input[name="+ind+"]").prop('type','text');
-			$("input[name="+ind+"]").val(ele);
+		$("input[name="+ind+"]").prop('type','text');
+		$("input[name="+ind+"]").val(ele);
 		//}
 	});
 }

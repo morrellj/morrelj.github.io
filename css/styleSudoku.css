@@ -65,7 +65,7 @@ input[type=number]::-webkit-outer-spin-button {
 	grid-template-columns: auto auto auto;
 	border: 0.5px solid blue;
 	width: 100%;
-	font-size: 60%;
+	font-size: 25%;
 
 }
 #resolveButton{
