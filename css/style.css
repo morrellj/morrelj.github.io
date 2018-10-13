@@ -77,8 +77,15 @@ nav ul {
   background-color: Var(--color-one);
   z-index: 2;
   opacity: 0;
+  /*animation-name: pulse;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
 }
-
+  @keyframes pulse {
+    20% {
+      opacity: 0.2;
+    }*/
+  }
 #menuButtonLine {
   height: 1px;
   width: 1px;

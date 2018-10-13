@@ -1,0 +1,90 @@
+html{
+color: blue;
+}
+h1{
+	text-align: center;
+}
+p{
+	font-size: 102px;
+	font-weight: bolder;
+	text-align: center;
+	font-family: courier;
+	margin-block-end: 0;
+}
+body{
+	background-color:#d742f4
+}
+.setUp{
+	width: 35vw;
+	max-width: 50vh;
+	min-width: 300px;
+}
+.outer{
+	display: grid;
+	grid-template-columns: auto auto auto;
+}
+.fullSet{
+display: grid;
+width: 75vw; 
+height: 75vw;
+min-width: 350px;
+max-width: 95vh;
+max-height: 95vh;
+
+	
+}
+.setRow{
+	display: grid;
+	grid-template-columns: auto auto auto;
+
+}
+.boxRow{
+	display: grid;
+	grid-template-columns: auto auto auto;
+
+
+}
+
+.boxTable{
+	display: grid;
+	grid-template-columns: auto auto auto;
+
+
+	text-align: center;
+	font-size: 40px;
+	border: 2px solid blue;
+
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.cell{
+	display: grid;
+	grid-template-columns: auto auto auto;
+	border: 0.5px solid blue;
+	width: 100%;
+	font-size: 60%;
+
+}
+#resolveButton{
+	width:  100px;
+	height: 50px ;
+	margin-top: 10px;
+	font-size: 80%;
+	
+}
+#clear{
+	width:  100px;
+	height: 50px ;
+	margin-top: 10px;
+	font-size: 80%;
+	
+}
+.setUp{
+	visibility: hidden;
+}
+#setUpButton{
+	visibility: hidden;
+}

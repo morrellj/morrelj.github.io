@@ -1,0 +1,127 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/styleSudoku.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/sudoku.js"></script>
+	</head>
+	<body>
+		<p>SUDOKU SOLVER</p>
+		<input value = "2,,,1,,,,,5,,,,,7,,,,,,8,1,,3,4,,9,,,,3,,8,,,4,,,,5,,9,,1,,,,4,,,2,,9,,,,1,,7,4,,8,5,,,,,,1,,,,,6,,,,,9,,,2" class="setUp" type="text" name="setUp">
+		<div><button id = "setUpButton" onclick="setUp()">Set up</button></div>
+		<hr>
+		<div class = "outer">
+		<div></div>
+		<div class = "fullSet">
+			<div class="setRow">
+				<div class="boxTable">
+							<input class="cell" type="number" name="0">
+							<input class="cell" type="number" name="1">	
+							<input class="cell" type="number" name="2">
+							<input class="cell" type="number" name="9">
+							<input class="cell" type="number" name="10">	
+							<input class="cell" type="number" name="11">
+							<input class="cell" type="number" name="18">
+							<input class="cell" type="number" name="19">	
+							<input class="cell" type="number" name="20">
+					</div>
+					<div class="boxTable">
+							<input class="cell" type="number" name="3">
+							<input class="cell" type="number" name="4">	
+							<input class="cell" type="number" name="5">
+							<input class="cell" type="number" name="12">
+							<input class="cell" type="number" name="13">	
+							<input class="cell" type="number" name="14">
+							<input class="cell" type="number" name="21">
+							<input class="cell" type="number" name="22">	
+							<input class="cell" type="number" name="23">
+					</div>
+					<div class="boxTable">
+							<input class="cell" type="number" name="6">
+							<input class="cell" type="number" name="7">	
+							<input class="cell" type="number" name="8">
+							<input class="cell" type="number" name="15">
+							<input class="cell" type="number" name="16">	
+							<input class="cell" type="number" name="17">
+							<input class="cell" type="number" name="24">
+							<input class="cell" type="number" name="25">	
+							<input class="cell" type="number" name="26">
+				</div>
+			</div>
+			<div class="setRow">
+				<div class="boxTable">
+							<input class="cell" type="number" name="27">
+							<input class="cell" type="number" name="28">	
+							<input class="cell" type="number" name="29">
+							<input class="cell" type="number" name="36">
+							<input class="cell" type="number" name="37">	
+							<input class="cell" type="number" name="38">
+							<input class="cell" type="number" name="45">
+							<input class="cell" type="number" name="46">	
+							<input class="cell" type="number" name="47">
+					</div>
+					<div class="boxTable">
+							<input class="cell" type="number" name="30">
+							<input class="cell" type="number" name="31">
+							<input class="cell" type="number" name="32">	
+							<input class="cell" type="number" name="39">
+							<input class="cell" type="number" name="40">
+							<input class="cell" type="number" name="41">	
+							<input class="cell" type="number" name="48">
+							<input class="cell" type="number" name="49">
+							<input class="cell" type="number" name="50">	
+
+					</div>
+					<div class="boxTable">
+							<input class="cell" type="number" name="33">
+							<input class="cell" type="number" name="34">
+							<input class="cell" type="number" name="35">	
+							<input class="cell" type="number" name="42">
+							<input class="cell" type="number" name="43">
+							<input class="cell" type="number" name="44">	
+							<input class="cell" type="number" name="51">
+							<input class="cell" type="number" name="52">
+							<input class="cell" type="number" name="53">	
+				</div>
+			</div>
+			<div class="setRow">
+				<div class="boxTable">
+							<input class="cell" type="number" name="54">
+							<input class="cell" type="number" name="55">
+							<input class="cell" type="number" name="56">	
+							<input class="cell" type="number" name="63">
+							<input class="cell" type="number" name="64">
+							<input class="cell" type="number" name="65">	
+							<input class="cell" type="number" name="72">
+							<input class="cell" type="number" name="73">
+							<input class="cell" type="number" name="74">	
+					</div>
+					<div class="boxTable">
+							<input class="cell" type="number" name="57">
+							<input class="cell" type="number" name="58">
+							<input class="cell" type="number" name="59">	
+							<input class="cell" type="number" name="66">
+							<input class="cell" type="number" name="67">
+							<input class="cell" type="number" name="68">	
+							<input class="cell" type="number" name="75">
+							<input class="cell" type="number" name="76">
+							<input class="cell" type="number" name="77">	
+							
+					</div>
+					<div class="boxTable">
+							<input class="cell" type="number" name="60">
+							<input class="cell" type="number" name="61">
+							<input class="cell" type="number" name="62">	
+							<input class="cell" type="number" name="69">
+							<input class="cell" type="number" name="70">
+							<input class="cell" type="number" name="71">	
+							<input class="cell" type="number" name="78">
+							<input class="cell" type="number" name="79">
+							<input class="cell" type="number" name="80">	
+				</div>
+			</div>
+			<div><button id = "resolveButton" onclick="resolve();">Submit</button><button id = "clear" onclick="clearGrid();">Clear</button></div>
+		</div>
+		<div></div>
+		</div>
+	</body>
+</html>
