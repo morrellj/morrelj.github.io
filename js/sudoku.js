@@ -274,8 +274,9 @@ function printSolution(targetArray){
 }
 function clearGrid(){
 	$(".cell").each(function (index, ele) {
-	//get arrays from input boxes
+	//clear input boxes and reset arrays
 		this.value = "";
+		reset();
 	});
 }
 function arraysEqual(a, b) {
