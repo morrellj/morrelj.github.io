@@ -1,16 +1,48 @@
 let fullArray = [];
-//An array that is created in the reset function and initially mapped in resolve function. It specifically and predictably represents the initial state of the puzzle and includes an index for each cell in the 81 cell puzzle. See the resolve() function for further information.
+//An array (the puzzle array) that is created in the reset() function and initially mapped in resolve function. It specifically and predictably represents the initial state of the puzzle and includes an index for each cell in the 81 cell puzzle. See the resolve() function for further information about the way in which the indexes represent the layout of the puzzle.
 
-let cellSchema = {};
-//Object: 81 property keys named after each index of fullArray. Each Property key's value is an array of three numbers. The first number represents the box that the cell belongs to, the second represents the column the cell belongs to and the third represents the row it belongs to. Each number can be used to look up which indexes in the fullArray make up the box, column and row the cell belongs to in the boxSchema, colSchema and rowSchema respectively. See below.
-let boxSchema = {};
-//Object: 9 property keys (numbers) that represent the 9 boxes of 9 cells in the puzzle. Each property or box is named after the index of the fullArray that represents the cell that falls in its top left most cell considering that the array is created according to the above description.  Each properties value is an array of numbers which are the indexes of the fullArray that make up each box.
-let colSchema = {};
+const cellSchema = {};
+//Object: 81 property keys named after each index of puzzle fullArray. Each Property key's value is an array of three numbers. The first number represents the box that the cell belongs to, the second represents the column the cell belongs to and the third represents the row it belongs to. Each number can be used to look up which indexes in the puzzle fullArray make up the box, column and row the cell belongs to in the boxSchema, colSchema and rowSchema respectively. See below.
+const boxSchema = {};
+//Object: 9 property keys (numbers) that represent the 9 boxes of 9 cells in the puzzle. Each property or box is named after the index of the puzzle fullArray that represents the cell that falls in its top left most cell considering that the array is created according to the above description.  Each properties value is an array of numbers which are the indexes of the fullArray that make up each box.
+const colSchema = {};
 //Object: 9 property keys (numbers) that represent the 9 columns in the puzzle. Each property or column is named after the index of the fullArray that represents the cell that is at the top of the column considering that the array is created according to the above description.  Each properties value is an array of numbers which are the indexes of the fullArray that make up each column.
-let rowSchema = {};
+const rowSchema = {};
 //Object: 9 property keys (numbers) that represent the 9 rows in the puzzle. Each property or row is named after the index of the fullArray that represents the left most cell of the row considering that the array is created according to the above description.  Each properties value is an array of numbers which are the indexes of the fullArray that make up each row.
+function trialPairSet (arr,ind,first,second){
+	this.arr = arr;
+	this.ind = ind;
+	this.first = first;
+	this.second = second;
+	this.status = true;
+	this.next = function(){
+		if(this.second){
+			let result = this.second;
+			delete this.second;
+			return result;
+		}
+		else if(this.first){
+			let result = this.first;
+			this.status = false;
+			delete this.first;
+			return result;
+		}
+		else {
+			return false;
+		}
+	}
+	this.values = function(){
+		return [this.ind, this.first, this.second];
+	}
+}
+let trialHistoryObjects = [];
 
 reset();
+testFunction([[1,3,3],[1,1],3,[1,2,3,4,5]]);
+function testFunction(value){
+	console.log(checkForPairs(value));
+	
+}
 
 function setUp(){
 	//function called when if using the text box and "set up" button method to enter initial puzzle data
@@ -71,35 +103,118 @@ function reset(){
 		fullArray.push([1,2,3,4,5,6,7,8,9]);
 	}
 }
-console.log(cellSchema);
-console.log(boxSchema);
-console.log(colSchema);
-console.log(rowSchema);
 
 function resolve (){
 	//iterate input fields to extract initial data and update the initial puzzle fullArray where input element name determines at which index in the puzzle fullArray each number will be located.  This is important because the application will attempt to solve the puzzle and present the solution with reference to the fullArray (or puzzle array). Therefore the array must predictably represent the initial puzzle. The top row (left to Right) being index 0 to 8 the second row being index 9 to 17 and so on down to the 9th row.  
 	$(".cell").each(function (index, ele) {
-	if(this.value){
+		if(this.value&&this.value.toString().length ===1 &&Number.parseInt(this.value)>0&&Number.parseInt(this.value)<10){
 		fullArray[this.name]=Number.parseInt(this.value);
 		}
+		else{
+			fullArray[this.name]=[1,2,3,4,5,6,7,8,9];
+		}
 	});
+	console.log(fullArray);
 	//Solve puzzle
-	const endArray = process(fullArray);
+	let endArray = process(fullArray);
+	endArray = superProcess(endArray);
 	//Print solution to the page
 	printSolution(endArray);
+	if(globalCheckForCorrectness(endArray)&&checkForCompleteness(endArray)){
+		alert("Good Solve ;-)");
+	}
+	else{
+		alert("Bit more work to do");
+	}
 }
 
-function process(targetArray){	
+function superProcess(targetArray){
+	let superArray = targetArray.map(ele=>Array.isArray(ele)?ele.slice():ele);
+
+	if(checkForCompleteness(superArray)){
+		return superArray;
+	}
+	else{
+		if(checkForPairs(superArray)){
+		trialHistoryObjects.unshift(new trialPairSet(superArray,...nexttrialPairSet(superArray,-1)));
+		return subProcess(superArray);
+		}
+		else{
+			return superArray;
+		}
+	}
+
+	function subProcess(arr){
+		if(checkForPairs(arr)){
+			let subArray = arr.map(ele=>Array.isArray(ele)?ele.slice():ele);
+			let modSubArray = getAppropriateTrialArray(subArray);
+			if(modSubArray){
+				modSubArray = process(modSubArray);
+			} 
+			else{
+				return subArray;
+			}
+			if(globalCheckForCorrectness(modSubArray)){
+				if(checkForCompleteness(modSubArray)){
+					return modSubArray;
+				}
+				else{//find and add the next pair to trial an option
+					let passInArray = modSubArray.map(ele=>Array.isArray(ele)?ele.slice():ele);
+					trialHistoryObjects.unshift(new trialPairSet(passInArray,...nexttrialPairSet(modSubArray,trialHistoryObjects[0].ind)));
+						return subProcess(modSubArray);
+				}
+			}
+			else{
+				return subProcess(subArray);
+			}
+		}
+		else{
+			return arr;
+		}
+	}
+	function getAppropriateTrialArray(arr){
+		let thisArray = arr.map((ele,ind)=>Array.isArray(ele)?ele.slice():ele);
+		if(updatedTrialHistoryObjects(trialHistoryObjects)){
+			thisArray = trialHistoryObjects[0].arr
+			thisArray = thisArray.map((ele,ind)=>Array.isArray(ele)?ele.slice():ele);
+			let trialValue = trialHistoryObjects[0].next();
+			let ind = trialHistoryObjects[0].ind;
+			thisArray[ind]=trialValue;
+		}else{
+			return false;
+		}
+		return thisArray;
+
+		function updatedTrialHistoryObjects(lca){
+			let second = lca[1];
+			let first = lca[0].status;
+			if(lca[1]===undefined&&lca[0].status===false){
+				return false;
+			}
+			else{
+				if(lca[0].status===false){
+					let junk = lca.shift();
+					console.log(lca);
+					return updatedTrialHistoryObjects(lca);
+				}
+				return true;
+			}
+		}
+	}		
+}
+function process(updatedCluesArray){	
 	// A function that systematically calls other functions and recalls itself in an effort, by process of elimination, to reduce all elements (indexes) of the current puzzle array from arrays of possibile Numbers to a single resolved Number (integer) in a way that satisfies the rules of sudoku.
-	const reducedArraysArray = possiblesReduce(targetArray);
+	let startArray = updatedCluesArray.map(ele=>Array.isArray(ele)?ele.slice():ele);
+
+	const reducedArraysArray = possiblesReduce(startArray);
 		
-	const convertedToNumbersArray = checkForArraysOfOne(reducedArraysArray);
+	const convertedToNumbersArray = convertArraysOfOneToWholeNumbers(reducedArraysArray);
 		
 	if(arraysEqual(reducedArraysArray, convertedToNumbersArray)){
-		const setCheckedArray = bcrSetCheckForLoneNumbers(convertedToNumbersArray);
+		const setCheckedArray = boxColumnRowSetCheckForLoneNumbers(convertedToNumbersArray);
 			
 		if(arraysEqual(setCheckedArray, convertedToNumbersArray)){
-			const deepSetCheckedArray = findIsolatedArrayPairs(setCheckedArray);
+			const deepSetCheckedArray = findBoxColumnRowIsolatedPairs(setCheckedArray);
 				
 			if(arraysEqual(setCheckedArray,deepSetCheckedArray)){
 				//returns an updated deep copied array that has exhausted all current processes of elimination.
@@ -121,7 +236,7 @@ function process(targetArray){
 
  
 function possiblesReduce(targetArray){
-	//Iterates the puzzle array to detect resolved indexes (or cells.) These are represented by primitive numbers in the array. There is then three calls to a function that will search all of the indexes in puzzle array that represent the box, column and row the index (or cell) belongs to to eliminate that number from the arrays of possibilities found there in. It returns an updated deep copy of the passed in puzzle array.
+	//The iniial puzzle array is full of arrays of numbers 1-9 as any number could potentially inhabit any index of the puzzle array. However since the introduction of the first puzzle clues this function begins to search each index relevent to the new whole number clues and removes those numbers from the arrays found therein as per the rules of sudoku.
 	let myArray = targetArray.map(ele=>Array.isArray(ele)?ele.slice():ele);
 	let startArray=targetArray.map(ele=>Array.isArray(ele)?ele.slice():ele);;
 
@@ -148,7 +263,7 @@ function searchAndDestroy(targetArray,searchArr,val){
 	return myArray;
 }
 
-function checkForArraysOfOne(arr){
+function convertArraysOfOneToWholeNumbers(arr){
 	//Iterates a deep copy of the current puzzle array to convert arrays of length one to Numbers (integers) that represent resolved indexes.  It returns the updated version of the deep copied array to the main function.
 	let repeat = false;
 	let newArray = arr.map((ele,ind)=>{
@@ -158,32 +273,32 @@ function checkForArraysOfOne(arr){
 		}else{return ele;}
 	});
 	if(repeat){
-		checkForArraysOfOne(newArray);
+		convertArraysOfOneToWholeNumbers(newArray);
 	}
 	return newArray;
 }
 
-function bcrSetCheckForLoneNumbers(targetArray){
-	// a function that systematically checks all box, col and row schema sets for the presence of a cell within that schema that holds within its array the only representation of a Number. Having found such a instance it converts that second level array to a Number (integer) which then represents a resolved index of the current puzzle array.  The function returns an updated deep copy of the array to the main function.
+function boxColumnRowSetCheckForLoneNumbers(targetArray){
+	// a function that systematically checks all box, col and row schema sets for the presence of a cell within that schema that holds within its array the only representation of a Number. Having found such a instance it converts that second level array to a Number (integer) which then represents a resolved index of the current puzzle array.  The function returns an updated copy of the array to the main function.
 	let myArray = targetArray.map(ele=>Array.isArray(ele)?ele.slice():ele);
 
 	let upDatedArray = function(schema){
 		for(let schematic in schema){
-			let set = {};
+			let boxColumnRowSet = {};
 			let numCount = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
 			for(i=0;i<9;i++){
-					set[schema[schematic][i]] = myArray[schema[schematic][i]];
+					boxColumnRowSet[schema[schematic][i]] = myArray[schema[schematic][i]];
 				}
-			for(let cell in set){
-				if(Array.isArray(set[cell])){
-					set[cell].map(ele=>numCount[ele]++);
+			for(let cell in boxColumnRowSet){
+				if(Array.isArray(boxColumnRowSet[cell])){
+					boxColumnRowSet[cell].map(ele=>numCount[ele]++);
 				}
 			}
 			for(let num in numCount){
 				if(numCount[num]===1){
-					for(let cell in set){
-						if(Array.isArray(set[cell])) {
-							if(set[cell].some(elle=>elle===Number.parseInt(num))){
+					for(let cell in boxColumnRowSet){
+						if(Array.isArray(boxColumnRowSet[cell])) {
+							if(boxColumnRowSet[cell].some(elle=>elle===Number.parseInt(num))){
 								myArray[cell]=Number.parseInt(num);
 								return true; 							}
 						}
@@ -230,22 +345,7 @@ function arraysEqual(a, b) {
   }
   return true;
 }
-
-function consolePrintSolution(arr){
-	//used for debugging
-	console.log(arr.slice(0,9));
-	console.log(arr.slice(9,18));
-	console.log(arr.slice(18,27));
-	console.log(arr.slice(27,36));
-	console.log(arr.slice(36,45));
-	console.log(arr.slice(45,54));
-	console.log(arr.slice(54,63));
-	console.log(arr.slice(63,72));
-	console.log(arr.slice(72));
-}
-
-
-function findIsolatedArrayPairs(arr){
+function findBoxColumnRowIsolatedPairs(arr){
 
 	//A complex logic that creates a set of index/value pairs for each schema (9 boxes, 9 columns and 9 rows) of the current puzzle array and searches for instances where there are only two indexes in that schema set containing arrays of the same two numbers.  From this discovery a function is called that takes the set of index/value pairs and uses the references to remove each of the two numbers from every other array at indexes in a deeply copied version of the current puzzle array that are represented by that schema set.  An updated version of the deep copied puzzle array is then returned recursively until all isolated pairs have been acted upon (including those that have been created by the function) after which the final array is returned to the main process() function.
 
@@ -254,28 +354,28 @@ function findIsolatedArrayPairs(arr){
 	let subFunction = function(schema){
 		
 		for(let schematic in schema){
-			let set = {};
-			let isoPairsSet = {}
+			let boxColumnRowSet = {};
+			let isolatedPairsSet = {}
 			for(i=0;i<9;i++){
-					set[schema[schematic][i]] = myArray[schema[schematic][i]];
+					boxColumnRowSet[schema[schematic][i]] = myArray[schema[schematic][i]];
 				}
 
-			if(isoPairs(set)){
-				if(isoPairReduce(isoPairsSet)){
+			if(findIsolatedPairs(boxColumnRowSet)){
+				if(isoPairReduce(isolatedPairsSet)){
 					return true;
 				}
 			}
 
-			function isoPairs(thisSet){
-				for(let cell in thisSet){ 
-					isoPairsSet = {};
-					if(Array.isArray(thisSet[cell])&&thisSet[cell].length===2){
-						for(let repeatcells in thisSet){
-							if(Array.isArray(thisSet[repeatcells])&&arraysEqual([...thisSet[repeatcells]],[...set[cell]])){
-								isoPairsSet[repeatcells]=[...thisSet[repeatcells]];
+			function findIsolatedPairs(thisboxColumnRowSet){
+				for(let cell in thisboxColumnRowSet){ 
+					isolatedPairsSet = {};
+					if(Array.isArray(thisboxColumnRowSet[cell])&&thisboxColumnRowSet[cell].length===2){
+						for(let repeatcells in thisboxColumnRowSet){
+							if(Array.isArray(thisboxColumnRowSet[repeatcells])&&arraysEqual([...thisboxColumnRowSet[repeatcells]],[...boxColumnRowSet[cell]])){
+								isolatedPairsSet[repeatcells]=[...thisboxColumnRowSet[repeatcells]];
 							}
 						}
-						if(Object.entries(isoPairsSet).length===2){return true;}
+						if(Object.entries(isolatedPairsSet).length===2){return true;}
 					}
 				}
 				return false;
@@ -284,13 +384,13 @@ function findIsolatedArrayPairs(arr){
 			function isoPairReduce(IPS){
 				let result = false;
 				let nums = Object.values(IPS)[0];
-				for(let cell in set){
-					if(Array.isArray(set[cell])&&!arraysEqual(set[cell],nums)){
+				for(let cell in boxColumnRowSet){
+					if(Array.isArray(boxColumnRowSet[cell])&&!arraysEqual(boxColumnRowSet[cell],nums)){
 						let testArray = [...myArray[cell]];
-						if(set[cell].includes(nums[0])) {
+						if(boxColumnRowSet[cell].includes(nums[0])) {
 							myArray[cell]=myArray[cell].filter((elle)=>{return elle != nums[0];});
 							if(!arraysEqual(testArray,myArray[cell])){ result = true;}						}
-						if(set[cell].includes(nums[1])) {
+						if(boxColumnRowSet[cell].includes(nums[1])) {
 							myArray[cell]=myArray[cell].filter((elle)=>{return elle != nums[1];});
 							if(!arraysEqual(testArray,myArray[cell])){ result = true;}
 						}
@@ -303,6 +403,49 @@ function findIsolatedArrayPairs(arr){
 		return false;
 	}
 
-	return subFunction(boxSchema) ? findIsolatedArrayPairs(myArray):subFunction(colSchema)?findIsolatedArrayPairs(myArray):subFunction(rowSchema)?findIsolatedArrayPairs(myArray):myArray;
+	return subFunction(boxSchema) ? findBoxColumnRowIsolatedPairs(myArray):subFunction(colSchema)?findBoxColumnRowIsolatedPairs(myArray):subFunction(rowSchema)?findBoxColumnRowIsolatedPairs(myArray):myArray;
 
+}
+function checkForCompleteness(arr){
+	let result = true;
+	arr.map((ele)=>  typeof ele === "number"?result = result:result=false);
+	return result;
+}
+function indexCheckForCorrectness(targetArray,index){
+
+	function checkFailSchematic(schema){
+		let result = false;
+		for(let schemaIndex of schema){
+			if(schemaIndex!=index && typeof targetArray[schemaIndex]==="number" && targetArray[schemaIndex]===targetArray[index]){
+				result = true;
+			}
+		}
+		return result;
+	}
+
+	return checkFailSchematic(boxSchema[cellSchema[index][0]])?false:checkFailSchematic(colSchema[cellSchema[index][1]])?false:checkFailSchematic(rowSchema[cellSchema[index][2]])?false:true;
+}
+function globalCheckForCorrectness(targetArray){
+	for (let i = 0; i < targetArray.length; i++) {
+		if(indexCheckForCorrectness(targetArray,[i])===false){return false;}
+	}
+	return true;
+}
+function nexttrialPairSet(arr,lastInd){
+	console.log(lastInd);
+	let inputIndex = lastInd;
+	console.log(arr);
+	let ind = arr.findIndex((ele,ind)=>ind>lastInd&&Array.isArray(ele)&&ele.length===2);
+	if(ind===-1){
+		inputIndex = -1;
+	}
+	console.log(inputIndex);
+	ind = arr.findIndex((ele,ind)=>ind>inputIndex&&Array.isArray(ele)&&ele.length===2);
+	console.log(ind);
+	let first = arr[ind][0];
+	let second = arr[ind][1];
+	return [ind,first,second];
+}
+function checkForPairs(arr){
+	return arr.some(elle=>Array.isArray(elle)&&elle.length===2)
 }
